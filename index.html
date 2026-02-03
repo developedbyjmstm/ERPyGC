@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERPyGC - SYSTEM | Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2d5aa0;
+            --accent-color: #4299e1;
+            --light-color: #f7fafc;
+            --gray-color: #e2e8f0;
+            --dark-gray: #4a5568;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+            --border-radius: 10px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding-bottom: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.8rem 2rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 2.5rem;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+        }
+
+        .logo-icon {
+            font-size: 2.5rem;
+            margin-right: 1rem;
+            color: var(--accent-color);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .modules-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+            position: relative;
+        }
+
+        .modules-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent-color);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Modules Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Module Card */
+        .module-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 1.8rem 1.5rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            min-height: 180px;
+        }
+
+        .module-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: var(--accent-color);
+        }
+
+        .module-icon {
+            font-size: 2.8rem;
+            margin-bottom: 1.2rem;
+            color: var(--secondary-color);
+        }
+
+        .module-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        /* Accounting module special styling */
+        .module-card.accounting {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card.accounting:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background-color: #38b2ac;
+        }
+
+        /* Status Message */
+        .status-message {
+            text-align: center;
+            margin-top: 2.5rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            border-left: 5px solid var(--accent-color);
+        }
+
+        .status-message h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--dark-gray);
+            font-size: 0.9rem;
+            padding: 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .modules-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .modules-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .module-card {
+                padding: 1.5rem 1rem;
+                min-height: 160px;
+            }
+
+            .module-icon {
+                font-size: 2.4rem;
+            }
+
+            .module-name {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .modules-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .module-card {
+                min-height: 140px;
+                padding: 1.2rem 1rem;
+            }
+
+            .modules-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Loading animation for modules */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .module-card {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Alert dialog customization */
+        .alert-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .alert-dialog {
+            background-color: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .alert-dialog h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .alert-dialog p {
+            margin-bottom: 1.5rem;
+            color: var(--dark-gray);
+            line-height: 1.6;
+        }
+
+        .alert-dialog button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .alert-dialog button:hover {
+            background-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-chart-line logo-icon"></i>
+                <div>
+                    <h1>ERPyGC – SYSTEM</h1>
+                    <p class="subtitle">Enterprise Resource Planning</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h2 class="modules-title">Módulos do Sistema</h2>
+        
+        <!-- Modules Grid -->
+        <div class="modules-grid" id="modulesGrid">
+            <!-- Modules will be dynamically inserted here -->
+        </div>
+
+        <!-- Status Message -->
+        <div class="status-message">
+            <h3>Sistema em Desenvolvimento</h3>
+            <p>O ERPyGC – SYSTEM está em fase de desenvolvimento ativo. Algumas funcionalidades podem estar limitadas. Clique em qualquer módulo para verificar seu status de desenvolvimento.</p>
+            <p><strong>Nota:</strong> O módulo de Contabilidade está parcialmente implementado e redirecionará para uma página específica.</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>ERPyGC – SYSTEM &copy; <span id="currentYear"></span> | Todos os direitos reservados</p>
+        <p>v1.0.0 | Dashboard Principal</p>
+    </footer>
+
+    <!-- Custom Alert Dialog -->
+    <div class="alert-overlay" id="alertOverlay">
+        <div class="alert-dialog">
+            <h3 id="alertTitle">Módulo em desenvolvimento</h3>
+            <p id="alertMessage">Este módulo está atualmente em fase de desenvolvimento e será disponibilizado em breve.</p>
+            <button id="alertCloseBtn">Continuar</button>
+        </div>
+    </div>
+
+    <script>
+        // Define modules data
+        const modules = [
+            { id: 1, name: "Logística", icon: "fas fa-truck", color: "#3182ce" },
+            { id: 2, name: "Contabilidade", icon: "fas fa-calculator", color: "#38b2ac", special: true },
+            { id: 3, name: "Tesouraria", icon: "fas fa-money-check-alt", color: "#805ad5" },
+            { id: 4, name: "Recursos Humanos", icon: "fas fa-users", color: "#dd6b20" },
+            { id: 5, name: "Ativos Fixos", icon: "fas fa-building", color: "#e53e3e" },
+            { id: 6, name: "Produção", icon: "fas fa-industry", color: "#d69e2e" },
+            { id: 7, name: "CRM", icon: "fas fa-handshake", color: "#319795" },
+            { id: 8, name: "Gestão Comercial", icon: "fas fa-chart-bar", color: "#00a3c4" },
+            { id: 9, name: "Business Intelligence", icon: "fas fa-brain", color: "#0987a0" },
+            { id: 10, name: "Integrações / API", icon: "fas fa-plug", color: "#5a67d8" },
+            { id: 11, name: "Mobile", icon: "fas fa-mobile-alt", color: "#ed64a6" },
+            { id: 12, name: "Segurança / Utilizadores", icon: "fas fa-shield-alt", color: "#48bb78" }
+        ];
+
+        // DOM Elements
+        const modulesGrid = document.getElementById('modulesGrid');
+        const alertOverlay = document.getElementById('alertOverlay');
+        const alertTitle = document.getElementById('alertTitle');
+        const alertMessage = document.getElementById('alertMessage');
+        const alertCloseBtn = document.getElementById('alertCloseBtn');
+        const currentYearSpan = document.getElementById('currentYear');
+
+        // Set current year in footer
+        currentYearSpan.textContent = new Date().getFullYear();
+
+        // Initialize modules grid
+        function initModules() {
+            modulesGrid.innerHTML = '';
+            
+            modules.forEach(module => {
+                const moduleCard = document.createElement('div');
+                moduleCard.className = `module-card ${module.special ? 'accounting' : ''}`;
+                moduleCard.setAttribute('data-module', module.id);
+                moduleCard.setAttribute('data-name', module.name);
+                
+                moduleCard.innerHTML = `
+                    <i class="${module.icon} module-icon" style="color: ${module.color};"></i>
+                    <h3 class="module-name">${module.name}</h3>
+                `;
+                
+                // Add click event
+                moduleCard.addEventListener('click', () => handleModuleClick(module));
+                
+                // Add animation delay based on position
+                moduleCard.style.animationDelay = `${module.id * 0.05}s`;
+                
+                modulesGrid.appendChild(moduleCard);
+            });
+        }
+
+        // Handle module click
+        function handleModuleClick(module) {
+            if (module.name === "Contabilidade") {
+                // For accounting, redirect to the specified page
+                showAlert(
+                    "Redirecionando para Contabilidade", 
+                    "Você será redirecionado para o módulo de Contabilidade, que está parcialmente implementado."
+                );
+                
+                // Simulate a brief delay before redirecting
+                setTimeout(() => {
+                    window.location.href = "accounting/accounting.html";
+                }, 1500);
+            } else {
+                // For other modules, show the development alert
+                showAlert(
+                    "Módulo em desenvolvimento", 
+                    `O módulo <strong>${module.name}</strong> está atualmente em fase de desenvolvimento e será disponibilizado em breve.`
+                );
+            }
+        }
+
+        // Show custom alert dialog
+        function showAlert(title, message) {
+            alertTitle.innerHTML = title;
+            alertMessage.innerHTML = message;
+            alertOverlay.style.display = 'flex';
+        }
+
+        // Close alert dialog
+        function closeAlert() {
+            alertOverlay.style.display = 'none';
+        }
+
+        // Event listeners
+        alertCloseBtn.addEventListener('click', closeAlert);
+        alertOverlay.addEventListener('click', (e) => {
+            if (e.target === alertOverlay) {
+                closeAlert();
+            }
+        });
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', initModules);
+        
+        // Add keyboard support for closing alert
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && alertOverlay.style.display === 'flex') {
+                closeAlert();
+            }
+        });
+    </script>
+</body>
+</html>
